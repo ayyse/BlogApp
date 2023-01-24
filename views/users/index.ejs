@@ -15,9 +15,7 @@
                     <%= title%>
                 </h1>
                 <% blogs.forEach(blog => { %>
-                    <% if (blog.anasayfa) { %>
-                        <%- include("../partials/blog-card.ejs", blog) %> 
-                    <% } %>
+                    <%- include("../partials/blog-card.ejs", blog) %> 
                 <% }) %>
             </div>
         </div>
