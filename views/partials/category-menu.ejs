@@ -1,8 +1,9 @@
 <div class="list-group">
-    <a href="" class="list-group-item list-group-item-action active">Tüm Kategoriler</a>
-    <% for( let index=0; index < categories.length; index++ ) { %>
-        <a href="" class="list-group-item list-group-item-action">
-            <%= categories[index].name %>
+    <a href="/blogs" class="list-group-item list-group-item-action">Tüm Kategoriler</a>
+    <% categories.forEach(function(category) { %>
+        <a href="/blogs/category/<%= category.categoryid %> " 
+            class="list-group-item list-group-item-action <%= selectedCategory == category.categoryid ? 'active' : '' %> ">
+            <%= category.name %>
         </a>
-        <% } %>
+    <% }) %>
 </div>

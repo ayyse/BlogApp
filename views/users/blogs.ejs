@@ -14,6 +14,10 @@
                 <h1 class="h3 mb-3">
                     <%= title%>
                 </h1>
+                <% if (blogs.length == 0) { %>
+                    <%- include("../partials/no-products.ejs") %>
+                <% } %>
+                
                 <% blogs.forEach(blog => { %>
                     <%- include("../partials/blog-card.ejs", blog) %>
                 <% }) %>
