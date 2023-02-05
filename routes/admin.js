@@ -25,7 +25,7 @@ router.post("/blog/delete/:blogid", async function(req, res) {
     
     try {
         await db.execute("delete from blog where blogid=?", [blogid]);
-        res.redirect("/admin/blogs");
+        res.redirect("/admin/blogs?action=delete");
     }
     catch(err) {
         console.log(err);
@@ -55,7 +55,7 @@ router.post("/blog/create", async function(req, res) {
     try {
         await db.execute("INSERT INTO blog(baslik, aciklama, resim, anasayfa, onay, categoryid) VALUES (?,?,?,?,?,?)", 
         [baslik, aciklama, resim, anasayfa, onay, kategori]);
-        res.redirect("/admin/blogs");
+        res.redirect("/admin/blogs?action=create");
     }
     catch(err) {
         console.log(err);
@@ -92,9 +92,9 @@ router.post("/blogs/:blogid", async function(req, res) {
     const kategoriid = req.body.kategori;
 
     try {
-        await db.execute("update blog set baslik=?, aciiklama=?, resim=?, anasayfa=?, onay=?, categoryid=? where blogis=?", 
+        await db.execute("update blog set baslik=?, aciklama=?, resim=?, anasayfa=?, onay=?, categoryid=? where blogid=?", 
         [baslik, aciklama, resim, anasayfa, onay, kategoriid, blogid]);
-        res.render("admin/blogs");
+        res.redirect("/admin/blogs?action=edit");
     }
     catch(err) {
         console.log(err);
@@ -106,7 +106,8 @@ router.get("/blogs", async function(req, res) {
         const [blogs, ] = await db.execute("select blogid, resim, baslik from blog");
         res.render("admin/blog-list", {
             title: "blog list",
-            blogs: blogs
+            blogs: blogs,
+            action: req.query.action
         })
     }
     catch(err) {
